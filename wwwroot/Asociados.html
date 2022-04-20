@@ -19,14 +19,35 @@
                 <a class="nav-link active" aria-current="page" href="index.html">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="Asociados.html">Asociados</a>
+                <a class="nav-link"  href="Asociados.html">Asociados</a>
               </li>
             </ul>
           </div>
         </div>
       </nav>
+      <br>
+      <br>
+      <table id="tabla" class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Correo</th>
+                <th scope="col">medicamentos</th>
+                <th scope="col">Acciones</th>
+                
+            </tr>
+        </thead>
+        <tbody id="cuerpo-tabla">
+        </tbody>
+    </table>
+    <br>
+    <br>
 
     <h1>list, clients</h1>
+
+    <button id="btnBuscar" type="submit" class="btn btn-primary" onclick="GetAsociados()" > buscar Clientes <i class="fas fa-user-plus"></i> </button>
 
     <div class="button_agregar col-md-6">
         <a href="AgregarAsociado.html"> <button  id="buttonAdd" type="submit" class="btn btn-light mb-2"> Agregar Asociado</button></a>
@@ -34,5 +55,76 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    
+
+<!--     <script>
+      
+      
+      const renderTabla = (value)=>{
+            debugger;
+            $("#cuerpo-tabla").append(`<tr>        
+                <th scope="row">${value.Id}</th>
+                 <td>${value.Nombre}</td> 
+                 <td>${value.Apellido}</td> 
+                 <td>${value.Correo}</td> 
+                 <td>${value.medicamentos}</td> 
+                <td>
+                <button onclick="eliminar(${value.id});" id="btnEliminar"  class="btn btn-danger">Eliminar</button>
+                    <a id="btnEditar"  class="btn btn-info" href="/Cliente/Editar?id=${value.id}" >Editar</a>
+               </td>
+                </tr>`);
+    }
+    </script>
+ -->
+<!--     <script>
+      const urlApi = "https://localhost:7126/Api/Asociado";
+
+    async  function getTodosLosClientes(){
+
+            const respuesta = await fetch(urlApi,
+            {
+                method : " GET",
+                headers: 
+                {
+                'accept' : 'application/json',
+                'Content-Type' : 'application/json',    
+                },
+      
+            })
+
+          .then(respuesta.Asociados, function (index, value) {
+                        renderTabla(value);})
+            .catch(error => console.log(error))
+  }
+    </script> -->
+
+<script>
+  const urlApi = "https://localhost:7126/Api/Asociado/";
+  async function GetAsociados()
+{  
+  let datos = {
+
+              Id : 0,
+              Nombre : "1",
+              Apellido : "1"
+              }
+
+    const response = await fetch(urlApi,
+        {
+            method : 'GET',
+            headers: 
+            {
+            'accept' : 'application/json',
+            'Content-Type' : 'application/json',    
+            },
+            Query : JSON.stringify(datos) 
+        })
+        .then(response => response.json())
+        return response.asociados;   
+}
+
+</script>    
+
 </body>
 </html>

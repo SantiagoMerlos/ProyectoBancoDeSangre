@@ -43,29 +43,28 @@ namespace capacitacion.Controllers
         {
             CargarAsociados();
 
+            var user = new Asociado();
+
+            //int valor = 0;
+
             var respuesta = new RespuestaObtenerAsociado();
 
-            respuesta.Asociados = this.asociados;
+            if(solicitud.Id != 0)
+            {
+                user = asociados.Find(x=> x.Id == solicitud.Id);
+                respuesta.Asociado1 = user;
 
-            if (!string.IsNullOrEmpty(solicitud.Apellido)) {
-
-                respuesta.Asociados = respuesta.Asociados.Where(c => c.Apellido.ToLower().Contains(solicitud.Apellido.ToLower())).ToList();
+                return respuesta;
             }
-            if (solicitud.Id > 0) {
-                respuesta.Asociados = respuesta.Asociados.Where(c => c.Id == solicitud.Id).ToList();
+            else
+            {
+                respuesta.Asociados = asociados;
             }
-            if (!string.IsNullOrEmpty(solicitud.Nombre)) {
-                respuesta.Asociados = respuesta.Asociados.Where(c => c.Nombre.ToLower().Contains(solicitud.Nombre.ToLower())).ToList();
-            }
-/*             if (solicitud.esDonante > 0) {
-                respuesta.Asociados = respuesta.Asociados.Where(c => c.esDonante == solicitud.esDonante).ToList();
-            } */
-/*             if (!string.IsNullOrEmpty(solicitud.Correo)) {
-                respuesta.Asociados = respuesta.Asociados.Where(c => c.Correo.ToLower().Contains(solicitud.Correo.ToLower())).ToList();
-            }*/
-
+            
             return respuesta;
+           
         }
+
 
 
         [HttpPost]
