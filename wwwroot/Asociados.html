@@ -27,32 +27,45 @@
       </nav>
       <br>
       <br>
-      <table id="tabla" class="table">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
-                <th scope="col">Correo</th>
-                <th scope="col">medicamentos</th>
-                <th scope="col">Acciones</th>
-                
-            </tr>
-        </thead>
-        <tbody id="cuerpo-tabla">
-        </tbody>
-    </table>
+      <section class="container">
+        <table id="tabla" class="table">
+          <thead>
+              <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Apellido</th>
+                  <th scope="col">Correo</th>
+                  <th scope="col">medicamentos</th>
+                  <th scope="col">Acciones</th>
+                  
+              </tr>
+          </thead>
+          <tbody id="cuerpo-tabla">
+          </tbody>
+      </table>
+      <br>
+      <br>
+      <br>
+
+      <div class="row">
+        <div class="col-md-3">
+          <button id="btnBuscar" type="submit" class="btn btn-primary" onclick="GetAsociados()" > buscar Clientes <i class="fas fa-user-plus"></i> </button>
+        </div>
+
+        <div class="button_agregar col-md-3">
+            <a href="AgregarAsociado.html"> <button  id="buttonAdd" type="submit" class="btn btn-success mb-2"> Agregar Asociado</button></a>
+            
+        </div>
+      </div>
+      
+      </section>
+
     <br>
     <br>
 
-    <h1>list, clients</h1>
+    
 
-    <button id="btnBuscar" type="submit" class="btn btn-primary" onclick="GetAsociados()" > buscar Clientes <i class="fas fa-user-plus"></i> </button>
-
-    <div class="button_agregar col-md-6">
-        <a href="AgregarAsociado.html"> <button  id="buttonAdd" type="submit" class="btn btn-light mb-2"> Agregar Asociado</button></a>
-        
-    </div>
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
@@ -119,17 +132,40 @@
 
                     .then(response => response.json())
                     debugger;
-                    return response.asociados;
+                    //cargarTable();
+                    var listClientes = response.asociados;
+
+                   /*  renderTabla(); */
+
+                    debugger;
+
+                    return listClientes;
+                    //return response.asociados;
                        
                     debugger;
+
+                    
+/*                     function renderTabla(listClientes){
+
+                        for (var i=0; i<listClientes.length; i++){
+
+                          getElementById("cuerpo-tabla").append(`<tr>        
+                          <th scope="row">${listClientes.Id.[i]}</th>
+                          <td>${listClientes.nombre}</td> 
+                          <td>${listClientes.apellido}</td> 
+                          <td>${listClientes.enfermedades}</td> 
+                          <td>${listClientes.correo}</td> 
+
+                          </tr>`);
+                        }
+                      } */
+                    
             }
-
-  function cargarTable(){
-
-
-
-
-  }
+                                     /*  <td>
+                          <button onclick="eliminar(${value.id});" id="btnEliminar"  class="btn btn-danger">Eliminar</button>
+                              <a id="btnEditar"  class="btn btn-info" href="/Cliente/Editar?id=${value.id}" >Editar</a>
+                        </td> */
+            
 
 </script>    
 
