@@ -100,29 +100,36 @@
     </script> -->
 
 <script>
-  const urlApi = "https://localhost:7126/Api/Asociado/";
+
+
+  const urlApi = "https://localhost:7126/Api/Asociado/?Id=0&Nombre=' ' &Apellido= ' ' ";
   async function GetAsociados()
-{  
-  let datos = {
+            {  
+              
+                const response = await fetch(urlApi,
+                    {
+                        method : 'GET',
+                        headers: 
+                        {
+                        'accept' : 'application/json',
+                        'Content-Type' : 'application/json',    
+                        },
+                        
+                    })
 
-              Id : 0,
-              Nombre : "1",
-              Apellido : "1"
-              }
+                    .then(response => response.json())
+                    debugger;
+                    return response.asociados;
+                       
+                    debugger;
+            }
 
-    const response = await fetch(urlApi,
-        {
-            method : 'GET',
-            headers: 
-            {
-            'accept' : 'application/json',
-            'Content-Type' : 'application/json',    
-            },
-            Query : JSON.stringify(datos) 
-        })
-        .then(response => response.json())
-        return response.asociados;   
-}
+  function cargarTable(){
+
+
+
+
+  }
 
 </script>    
 
