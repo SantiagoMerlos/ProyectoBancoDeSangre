@@ -28,15 +28,16 @@
       <br>
       <br>
       <section class="container">
+        
         <table id="tabla" class="table">
           <thead>
               <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Apellido</th>
-                  <th scope="col">Correo</th>
-                  <th scope="col">medicamentos</th>
-                  <th scope="col">Acciones</th>
+                  <th scope="col" id="id">#</th>
+                  <th scope="col" id="name">Nombre</th>
+                  <th scope="col" id="middlename">Apellido</th>
+                  <th scope="col" id="gmail">Correo</th>
+                  <th scope="col" id="medicamento">medicamentos</th>
+                  <th scope="col" id="actions">Acciones</th>
                   
               </tr>
           </thead>
@@ -135,7 +136,7 @@
                     //cargarTable();
                     var listClientes = response.asociados;
 
-                   /*  renderTabla(); */
+                   renderTabla(listClientes); 
 
                     debugger;
 
@@ -144,21 +145,29 @@
                        
                     debugger;
 
-                    
-/*                     function renderTabla(listClientes){
+                    function renderTabla(listClientes){
 
                         for (var i=0; i<listClientes.length; i++){
+                          var cuerpotabla = document.getElementById("cuerpo-tabla");
+                          
+                          var tdID = document.createElement("td"); tdID.innerHTML = listClientes[i].id;
+                          var tdNombre = document.createElement("td"); tdNombre.innerHTML = listClientes[i].nombre;
+                          var tdApellido = document.createElement("td"); tdApellido.innerHTML = listClientes[i].apellido;
+                          var tdEnfermedades = document.createElement("td"); tdEnfermedades.innerHTML = listClientes[i].enfermedades;
+                          var tdCorreo = document.createElement("td"); tdCorreo.innerHTML = listClientes[i].correo;
 
-                          getElementById("cuerpo-tabla").append(`<tr>        
-                          <th scope="row">${listClientes.Id.[i]}</th>
-                          <td>${listClientes.nombre}</td> 
-                          <td>${listClientes.apellido}</td> 
-                          <td>${listClientes.enfermedades}</td> 
-                          <td>${listClientes.correo}</td> 
-
-                          </tr>`);
+                          var tr = document.createElement("tr");
+                          tr.id = "tr"+i;
+                          cuerpotabla.appendChild(tr);
+                          
+                          document.getElementById("tr"+i).appendChild(tdID);
+                          document.getElementById("tr"+i).appendChild(tdNombre);
+                          document.getElementById("tr"+i).appendChild(tdApellido);
+                          document.getElementById("tr"+i).appendChild(tdCorreo);
+                          document.getElementById("tr"+i).appendChild(tdEnfermedades);
+                          
                         }
-                      } */
+                      }
                     
             }
                                      /*  <td>
