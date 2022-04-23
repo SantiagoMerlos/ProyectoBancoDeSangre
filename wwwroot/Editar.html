@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta Nombre="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"/>
+    
+    <!-- <link rel="stylesheet" href="wwwroot/css/styles.css?1.4" /> -->
+
+    <title>Actualizar asociado</title>
+</head>
+<body class="background">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link"  href="Asociados.html">Asociados</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <br>
+      <br>
+
+    
+
+  <div class="container">
+    <p>Complete el siguiente formulario para editar a un asociado.</p>
+    <form action="">
+
+      <div class="form-group col-md-3">
+        <label for="exampleFormControlInput1">Ingrese el id del cliente:</label>
+        <input type="number" class="form-control" id="idCliente" aria-describedby=""
+            placeholder="Ingrese el ID">
+      </div>
+
+
+    <div class="form-group col-md-3">
+      <label for="exampleFormControlInput1">Ingrese el nombre del cliente:</label>
+      <input type="string" class="form-control" id="nombreCliente" aria-describedby=""
+          placeholder="Ingrese el nombre">
+    </div>
+
+    <div class="form-group col-md-3">
+      <label for="exampleFormControlInput1">Ingrese el apellido del cliente:</label>
+        <input type="string" class="form-control" id="apellidoCliente" aria-describedby=""
+            placeholder="Ingrese el apellido">
+    </div>
+
+    <div class="form-group col-md-3" >
+      <label for="exampleFormControlInput1">Ingrese un correo:</label>
+        <input type="email" class="form-control" id="correoCliente" aria-describedby=""
+            placeholder="correo@gmail.com">
+    </div>
+    
+    <div class="form-group col-md-3" >
+      <label for="exampleFormControlInput1">Posee enfermedades?</label>
+      <select class="form-select" aria-label="Default select example" id="enfermedades">
+        <option selected>Seleccione una opción</option>
+        <option value=true>Si</option>
+        <option value=false>No</option>
+      </select>
+    </div>
+
+    <div class="form-group col-md-3" >
+      <label for="exampleFormControlInput1">Toma medicamentos?</label>
+      <select class="form-select" aria-label="Default select example" id="medicamentos">
+        <option selected>Seleccione una opción</option>
+        <option value=true>Si</option>
+        <option value=false>No</option>
+      </select>
+    </div>
+
+    <br>
+
+    </form>
+    <br>
+    <div style="display:inline">
+      <button id="btnSubmitAgregar" type="submit" class="btn btn-primary btn-success" onclick="userUpdated()" > Actualizar datos <i class="fas fa-user-plus"></i> </button>
+
+      <input type="reset"value="Limpiar formulario" class="btn btn-primary formulario__boton">
+  </div>
+
+
+  </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+
+
+        let params = new URLSearchParams(location.search);
+        var contract = params.get('Id');
+
+        debugger;
+        console.log(contract);
+
+
+  var urlApi = "https://localhost:7126/Api/Asociado/?Id="+contract;
+
+       
+
+    GetAsociados();
+
+    async function GetAsociados()
+            {  
+              
+                const  response = await fetch(urlApi,
+                    {
+                        method : 'GET',
+                        headers: 
+                        {
+                        'accept' : 'application/json',
+                        'Content-Type' : 'application/json',    
+                        },
+                        
+                    })
+
+                    .then(response => response.json())
+                    debugger;
+                    AsociadoUpdated = response.Asociado1;
+                    debugger;
+                    return AsociadoUpdated;
+            }
+
+            
+    </script>
+
+
+
+
+    <script>
+          var urlApi2 = "https://localhost:7126/Api/Asociado";
+
+          function userUpdated(){
+
+            const Id = document.getElementById("idCliente").value;
+            const Nombre = document.getElementById("nombreCliente").value;
+            const Apellido = document.getElementById("apellidoCliente").value;
+            const Correo = document.getElementById("correoCliente").value;
+            const enfermedades = SetBool(document.getElementById("enfermedades").value);
+            const medicamentos = SetBool(document.getElementById("medicamentos").value);
+
+            let datos = {
+
+              "Id" : Id,
+              "Nombre" : Nombre,
+              "Apellido" : Apellido,
+              "medicamentos" : medicamentos,
+              "enfermedades" : enfermedades,
+              "Correo" : Correo
+            }
+
+            console.log(datos);
+
+            const respuesta = fetch(urlApi2,
+            {
+                method : "PUT",
+                headers: 
+                {
+                'accept' : 'application/json',
+                'Content-Type' : 'application/json',    
+                },
+                body : JSON.stringify(datos) 
+            })
+            .then(respuesta => Swal.fire(
+            'Asociado actualizado con exito!',
+            'You clicked the button!',
+            'success'
+          ))
+            .catch(error => console.log(error))
+              
+            return respuesta;
+          }
+          //respuesta.json()
+          function SetBool(value)
+          {
+            if(value == "true") return true;
+            else return false;
+          }
+
+    </script>
+</body>
+</html>
