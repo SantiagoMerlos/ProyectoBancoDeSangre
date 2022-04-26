@@ -74,7 +74,7 @@
     
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
 
 
@@ -97,6 +97,7 @@ var listClientes;
                     })
 
                     .then(response => response.json())
+
                     debugger;
                     //cargarTable();
                     listClientes = response.asociados;
@@ -157,6 +158,7 @@ var listClientes;
         var buttonEditar = document.createElement("button");  buttonEditar.innerHTML= "Editar asociado"; buttonEditar.id = "buttonEditar";
         buttonEditar.setAttribute('onclick', 'screenEdit()');
         var buttonBorrar = document.createElement("button"); buttonBorrar.innerHTML = "Borrar asociado"; buttonBorrar.id = "buttonBorrar";
+        buttonBorrar.setAttribute('onclick', 'screenDelete()');
         
         var state = disabledCheckbox(chk);
 
@@ -212,14 +214,55 @@ var listClientes;
             console.log(listClientes[i].id)
             debugger;
             
-            IDASociado = listClientes[i].id;
-            return IDASociado;
+            IDAsociado = listClientes[i].id;
+            return IDAsociado;
           }
         }
         return IDAsociado;
       }
 
-            
+
+  async function screenDelete(){
+        
+        debugger;
+
+        var IDAsociado = 0;
+        debugger;
+
+        var idAsoc = SeakAsociadoSelected(IDAsociado)
+
+        console.log(idAsoc)
+
+        debugger;
+        let datos = {
+
+            "Id" : idAsoc
+            }
+
+
+        const urlApi = "https://localhost:7126/Api/Asociado/";
+        const respuesta = await fetch(urlApi,
+            {
+                method : 'DELETE',
+                headers: 
+                {
+                'accept' : 'application/json',
+                'Content-Type' : 'application/json',    
+                }, 
+                body : JSON.stringify(datos)
+            })
+            .then(respuesta => Swal.fire(
+            'Good job!',
+            'You clicked the button!',
+            'success',
+          //  GetAsociados()
+          ))
+            .catch(error => console.log(error))
+              console.log(respuesta)
+            return respuesta;
+
+
+      }
 
 </script>    
 

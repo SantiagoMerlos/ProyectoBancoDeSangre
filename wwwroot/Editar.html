@@ -108,17 +108,16 @@
         console.log(contract);
 
 
-  var urlApi = "https://localhost:7126/Api/Asociado/?Id="+contract;
+  //var urlApi = "https://localhost:7126/Api/Asociado/?Id="+contract;
+  var urlApi = "https://localhost:7126/Api/Asociado/?Id=20&Nombre=' ' &Apellido= ' ' "
+  
 
-       
-
-    GetAsociados();
-
-    async function GetAsociados()
+            async function GetAsociados()
             {  
               
-                const  response = await fetch(urlApi,
+                const respuesta = await fetch(urlApi,
                     {
+                        mode : 'no-cors',
                         method : 'GET',
                         headers: 
                         {
@@ -127,14 +126,16 @@
                         },
                         
                     })
+                    .then(respuesta =>respuesta.json())
+                    
+                    var aso1 = respuesta.asociados;
+                    debugger;
 
-                    .then(response => response.json())
-                    debugger;
-                    AsociadoUpdated = response.Asociado1;
-                    debugger;
-                    return AsociadoUpdated;
+                    console.log(aso1);
+                    return aso1;
             }
 
+            GetAsociados();
             
     </script>
 
