@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -113,8 +112,7 @@
   
 
             async function GetAsociados()
-            {  
-              
+            {                
                 const respuesta = await fetch(urlApi,
                     {
                         mode : 'no-cors',
@@ -124,15 +122,20 @@
                         'accept' : 'application/json',
                         'Content-Type' : 'application/json',    
                         },
-                        
                     })
                     .then(respuesta =>respuesta.json())
-                    
-                    var aso1 = respuesta.asociados;
-                    debugger;
 
-                    console.log(aso1);
-                    return aso1;
+                   //SE AGREGAN LOS DATOS OBTENIDOS COMO RESPUESTA AL FORMULARIO;
+                   document.getElementById("idCliente").value= respuesta.asociado1.id;
+                   document.getElementById("nombreCliente").value= respuesta.asociado1.nombre;
+                   document.getElementById("apellidoCliente").value= respuesta.asociado1.apellido;
+                   document.getElementById("correoCliente").value= respuesta.asociado1.correo;
+                   document.getElementById("medicamentos").value= respuesta.asociado1.medicamentos;
+                   document.getElementById("enfermedades").value= respuesta.asociado1.enfermedades;
+                    debugger;
+                    
+                    return respuesta;
+                    
             }
 
             GetAsociados();
@@ -177,8 +180,7 @@
                 body : JSON.stringify(datos) 
             })
             .then(respuesta => Swal.fire(
-            'Asociado actualizado con exito!',
-            'You clicked the button!',
+            'Asociado actualizado con éxito!',
             'success'
           ))
             .catch(error => console.log(error))

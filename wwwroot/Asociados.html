@@ -37,7 +37,7 @@
                   <th scope="col" id="name">Nombre</th>
                   <th scope="col" id="middlename">Apellido</th>
                   <th scope="col" id="gmail">Correo</th>
-                  <th scope="col" id="medicamento">medicamentos</th>
+                  <th scope="col" id="medicamento">Donante</th>
                   <th scope="col" id="actions">Acciones</th>
                   
               </tr>
@@ -122,7 +122,7 @@ var listClientes;
                           var tdID = document.createElement("td"); tdID.innerHTML = listClientes[i].id;
                           var tdNombre = document.createElement("td"); tdNombre.innerHTML = listClientes[i].nombre;
                           var tdApellido = document.createElement("td"); tdApellido.innerHTML = listClientes[i].apellido;
-                          var tdEnfermedades = document.createElement("td"); tdEnfermedades.innerHTML = listClientes[i].enfermedades;
+                          var tdEsDonante = document.createElement("td"); tdEsDonante.innerHTML = listClientes[i].esDonante;
                           var tdCorreo = document.createElement("td"); tdCorreo.innerHTML = listClientes[i].correo;
                           checkbox = createNewCheckboxt(checkbox,i);
                           var tdCheckbox = document.createElement("td"); tdCheckbox.appendChild(checkbox);
@@ -135,7 +135,7 @@ var listClientes;
                           document.getElementById("tr"+i).appendChild(tdNombre);
                           document.getElementById("tr"+i).appendChild(tdApellido);
                           document.getElementById("tr"+i).appendChild(tdCorreo);
-                          document.getElementById("tr"+i).appendChild(tdEnfermedades);
+                          document.getElementById("tr"+i).appendChild(tdEsDonante);
                           document.getElementById("tr"+i).appendChild(tdCheckbox);
                           
                           function createNewCheckboxt(checkbox, i) {
@@ -202,7 +202,8 @@ var listClientes;
         var IDAsociado = 0;
 
         var local = SeakAsociadoSelected(IDAsociado);
-         window.location.href = "http://127.0.0.1:5500/wwwroot/Editar.html?Id="+local;
+         //window.location.href = "http://127.0.0.1:5500/wwwroot/Editar.html?Id="+local;
+         window.location.href = "../Editar.html?Id="+local;
          
       }
 
@@ -253,8 +254,7 @@ var listClientes;
                 body : JSON.stringify(datos)
             })
             .then(respuesta => Swal.fire(
-            'Good job!',
-            'You clicked the button!',
+            'Asociado eliminado con éxito!',
             'success',
           //  GetAsociados()
           ))
