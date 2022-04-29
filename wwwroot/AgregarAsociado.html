@@ -11,7 +11,7 @@
     <title>Clientes</title>
 </head>
 <body class="background">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -81,13 +81,11 @@
     </div>
 
     <br>
-
+    <input type="reset"value="Limpiar formulario" class="btn btn-primary formulario__boton">
     </form>
     <br>
     <div style="display:inline">
       <button id="btnSubmitAgregar" type="submit" class="btn btn-primary btn-success" onclick="userAdd()" > Agregar <i class="fas fa-user-plus"></i> </button>
-
-      <input type="reset"value="Limpiar formulario" class="btn btn-primary formulario__boton">
   </div>
 
 
@@ -121,31 +119,52 @@
 
             console.log(datos);
 
-            const respuesta = fetch(urlApi,
-            {
-                method : "POST",
-                headers: 
-                {
-                'accept' : 'application/json',
-                'Content-Type' : 'application/json',    
-                },
-                body : JSON.stringify(datos) 
-            })
-            .then(respuesta => Swal.fire(
-            'Asociado agregado con éxito!',
-            'You clicked the button!',
-            'success'
-          ))
-            .catch(error => console.log(error))
-              
-            return respuesta;
-          }
+            if( datos.Id != "" && datos.Nombre != "" && datos.Apellido != ""){
+                    const respuesta = fetch(urlApi,
+                  {
+                      method : "POST",
+                      headers: 
+                      {
+                      'accept' : 'application/json',
+                      'Content-Type' : 'application/json',    
+                      },
+                      body : JSON.stringify(datos) 
+                  })
+                  .then(respuesta => 
+                  Swal.fire(
+                  'Asociado agregado con éxito!',
+                  'You clicked the button!',
+                  'success',
+                  setTimeout(function(){
+                    window.location.href = "../Asociados.html";
+                    }, 2000)
+                ))
+                  .catch(error => console.log(error))
+                    
+                  return respuesta;
+            }else{
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Ingrese los datos faltantes!',
+              })
+            }
+
+            }
+            
+            
+
+
           //respuesta.json()
           function SetBool(value)
           {
             if(value == "true") return true;
             else return false;
           }
+
+/*         await  function redirect(){
+            
+          } */
     </script>
 
 <!-- <script>

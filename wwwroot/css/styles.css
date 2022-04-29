@@ -1,4 +1,35 @@
 
 .background{
-    background-color: antiquewhite;
+    background-color: #b3e5fc8e;
+}
+.button_agregar{
+    text-align: end
+}
+.div_scroll{
+    height: 300px;
+	
+	overflow-y: scroll;
+
+}
+#Buttons{
+
+    text-align:center;
+
+}
+#buttonBorrar{
+    border-radius:15px;
+    border-color: rgba(247, 7, 7, 0.675);
+}
+
+#buttonBorrar:hover{
+    background-color:rgba(236, 92, 92, 0.807)
+}
+
+#buttonEditar{
+    border-radius:15px;
+    border-color: rgba(0, 128, 0, 0.487);
+}
+
+#buttonEditar:hover{
+    background-color:rgba(0, 128, 0, 0.442)
 }
