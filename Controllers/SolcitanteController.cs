@@ -86,6 +86,41 @@ using Newtonsoft.Json;
             return respuesta;
            
         }
+
+
+        [HttpPut]
+        public async Task<RespuestaActualizarSolicitante> Put([FromBody] SolicitudActualizarSolicitante solicitud)
+        {
+            CargarAsociados();
+        
+            var respuesta = new RespuestaActualizarSolicitante();
+
+            var listSolicitantes= this.Solicitantes;
+
+            bool existeCliente = listSolicitantes.Exists(x=>x.Id == solicitud.Id);
+
+            if(existeCliente)
+            {
+                listSolicitantes.Remove(listSolicitantes.Find(x => x.Id == solicitud.Id));
+
+                var SolicitanteNuevo = new Solicitante();
+                
+                SolicitanteNuevo.Id = solicitud.Id;
+                SolicitanteNuevo.apellido = solicitud.apellido;
+                SolicitanteNuevo.nombre = solicitud.nombre;
+                SolicitanteNuevo.cuil = solicitud.cuil;
+                
+                respuesta.solicitante = SolicitanteNuevo;
+                GuardarAsociado(SolicitanteNuevo);
+
+                return respuesta;
+            }else{
+
+                respuesta.ErrorMensaje = "El usuario no esta en la base de datos.";
+                return respuesta;
+            }
+
+       }
  
     }
 }

@@ -12,7 +12,8 @@ namespace contrato.servicios.cliente.solicitudes
         [Required]
         public bool medicamentos { get; set; }
         [Required]
-        public bool enfermedades { get; set; }        
+        public bool enfermedades { get; set; }   
+             
         [RegularExpression(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", ErrorMessage = "El formato del correo es inválido")]
         public string Correo { get; set; }
     }

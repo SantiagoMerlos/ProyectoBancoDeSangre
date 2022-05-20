@@ -33,3 +33,22 @@
 #buttonEditar:hover{
     background-color:rgba(0, 128, 0, 0.442)
 }
+
+.btn-Circulo{
+    border-radius: 15;
+    background-color: #b3d1fc8e;
+}
+
+.btn-Circulo a{
+    text-decoration: none;
+}
+
+.btn-BancoDeSangre{
+    margin-top: 10px;
+    border-radius: 15;
+    background-color: #b3d1fc8e;
+}
+
+.btn-BancoDeSangre a{
+    text-decoration: none;
+}
