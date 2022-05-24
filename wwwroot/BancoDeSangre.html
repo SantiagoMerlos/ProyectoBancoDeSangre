@@ -160,8 +160,11 @@
                     var checkbox = 0;
                     
 
-                    function renderTabla(listClientes){
-
+                    function renderTabla(listClientes)
+                    {
+                      cleanTable();
+                      var index = document.getElementById('cuerpo-tabla').children.length;
+                        debugger;
                         for (var i=0; i<listClientes.length; i++){
                           var cuerpotabla = document.getElementById("cuerpo-tabla");
                           
@@ -180,16 +183,16 @@
                           var tdCheckbox = document.createElement("td"); tdCheckbox.appendChild(checkbox);
 
                           var tr = document.createElement("tr");
-                          tr.id = "tr"+i;
+                          tr.id = "tr"+index;
                           cuerpotabla.appendChild(tr);
                           
-                          document.getElementById("tr"+i).appendChild(tdID);
-                          document.getElementById("tr"+i).appendChild(tdNombre);
-                          document.getElementById("tr"+i).appendChild(tdApellido);
+                          document.getElementById("tr"+index).appendChild(tdID);
+                          document.getElementById("tr"+index).appendChild(tdNombre);
+                          document.getElementById("tr"+index).appendChild(tdApellido);
                           
-                          document.getElementById("tr"+i).appendChild(tdEsDonante);
-                          document.getElementById("tr"+i).appendChild(tdTipoSangre)
-                          document.getElementById("tr"+i).appendChild(tdCheckbox);
+                          document.getElementById("tr"+index).appendChild(tdEsDonante);
+                          document.getElementById("tr"+index).appendChild(tdTipoSangre)
+                          document.getElementById("tr"+index).appendChild(tdCheckbox);
                           
                           function createNewCheckboxt(checkbox, i) {
                             var checkbox = document.createElement('input'); 
@@ -201,9 +204,26 @@
                             return checkbox;
                         }
 
+                        index++;
                         }
                       }              
             }
+
+            function cleanTable()
+            {
+              var element = document.getElementById("cuerpo-tabla");
+              var nodes = document.getElementById("cuerpo-tabla").children;
+              if(nodes.length > 0)
+              {
+                  for(var index=0; index<nodes.length; index++)
+                  {
+                    element.removeChild(nodes[index]);
+                  }
+              }
+            }
+
+
+            
 
       function createButtons(chk)
       {
