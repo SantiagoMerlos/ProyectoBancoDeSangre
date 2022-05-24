@@ -145,6 +145,7 @@
                    document.getElementById("correoCliente").value= respuesta.asociado1.correo;
                    document.getElementById("medicamentos").value= respuesta.asociado1.medicamentos;
                    document.getElementById("enfermedades").value= respuesta.asociado1.enfermedades;
+                   document.getElementById("tipoDeSangre").value= respuesta.asociado1.tipoSangre;
                    idCliente.disabled= true;
                     debugger;
                     
@@ -170,6 +171,7 @@
             const Correo = document.getElementById("correoCliente").value;
             const enfermedades = SetBool(document.getElementById("enfermedades").value);
             const medicamentos = SetBool(document.getElementById("medicamentos").value);
+            const tipoSangre = document.getElementById("tipoDeSangre").value;
 
             let datos = {
 
@@ -178,7 +180,8 @@
               "Apellido" : Apellido,
               "medicamentos" : medicamentos,
               "enfermedades" : enfermedades,
-              "Correo" : Correo
+              "Correo" : Correo,
+              "tipoSangre": tipoSangre
             }
 
             console.log(datos);

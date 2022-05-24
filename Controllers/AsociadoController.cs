@@ -90,6 +90,7 @@ namespace capacitacion.Controllers
             clienteNuevo.Correo = solicitud.Correo;
             clienteNuevo.medicamentos = solicitud.medicamentos;
             clienteNuevo.enfermedades = solicitud.enfermedades;
+            clienteNuevo.tipoSangre = solicitud.tipoSangre;
 
             respuesta.Asociados = clienteNuevo;
 
@@ -130,6 +131,7 @@ namespace capacitacion.Controllers
                 clienteNuevo.Correo = solicitud.Correo;
                 clienteNuevo.medicamentos = solicitud.medicamentos;
                 clienteNuevo.enfermedades = solicitud.enfermedades;
+                clienteNuevo.tipoSangre = solicitud.tipoSangre;
                 
                 
                 respuesta.Asociados = clienteNuevo;

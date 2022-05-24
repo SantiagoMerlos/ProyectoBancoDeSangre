@@ -28,7 +28,7 @@ using Newtonsoft.Json;
         System.IO.File.WriteAllText(DIRECCION_SOLICITANTES, temp);
     }
 
-    private void CargarAsociados()
+    private void Cargarsol()
     {
         string json = System.IO.File.ReadAllText(DIRECCION_SOLICITANTES);
         Solicitantes = JsonConvert.DeserializeObject<List<Solicitante>>(json);
@@ -39,7 +39,85 @@ using Newtonsoft.Json;
 
 
 
-         [HttpPost]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ public List<Asociado> asociados { get; set; }
+        public const string DIRECCION_CLIENTE = "db/clientes.json"; 
+
+    private void CargarAsociados()
+    {
+        string json = System.IO.File.ReadAllText(DIRECCION_CLIENTE);
+        asociados = JsonConvert.DeserializeObject<List<Asociado>>(json);
+    
+        if(asociados == null) asociados = new List<Asociado>();
+    
+    }
+
+
+        [HttpGet]
+        public async Task<RespuestaObtenerAsociado> Get([FromQuery] SolicitudObtenerSolicitante solicitud)
+        {
+            
+            CargarAsociados();
+
+            var user = new List<Asociado>();
+            var donantes = new List<Asociado>();
+            
+            //int valor = 0;
+            
+            var respuesta = new RespuestaObtenerAsociado();
+            if (solicitud.tipoSangre == "Ap") solicitud.tipoSangre ="A+";
+            if (solicitud.tipoSangre == "Bp") solicitud.tipoSangre ="B+";
+            if (solicitud.tipoSangre == "0p") solicitud.tipoSangre ="0+";
+            
+            if(solicitud.tipoSangre !="")
+            {
+                user = asociados.FindAll(x=> x.tipoSangre == solicitud.tipoSangre);
+                donantes = user.FindAll(x=> x.esDonante == true);
+                respuesta.Asociados = donantes;
+            }
+            else
+            {
+             respuesta.Asociados = donantes; 
+            }
+            
+            return respuesta;
+           
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*     [HttpPost]
         public async Task<RespuestaCrearSolicitante> Post([FromBody] SolicitudCrearSolicitante solicitud)
         {
             CargarAsociados();
@@ -59,33 +137,6 @@ using Newtonsoft.Json;
 
             return respuesta;
         } 
-
-        [HttpGet]
-        public async Task<RespuestaObtenerSolicitante> Get([FromQuery] SolicitudObtenerSolicitante solicitud)
-        {
-            CargarAsociados();
-
-            var user = new Solicitante();
-
-            //int valor = 0;
-
-            var respuesta = new RespuestaObtenerSolicitante();
-
-            if(solicitud.Id != 0)
-            {
-                user = Solicitantes.Find(x=> x.Id == solicitud.Id);
-                respuesta.solicitante = user;
-
-                return respuesta;
-            }
-            else
-            {
-                respuesta.solicitantes = Solicitantes;
-            }
-            
-            return respuesta;
-           
-        }
 
 
         [HttpPut]
@@ -120,7 +171,7 @@ using Newtonsoft.Json;
                 return respuesta;
             }
 
-       }
+       } */
  
     }
 }

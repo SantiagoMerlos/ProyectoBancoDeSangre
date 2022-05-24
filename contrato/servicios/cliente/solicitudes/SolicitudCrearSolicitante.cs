@@ -7,11 +7,12 @@ namespace contrato.servicios.cliente.solicitudes
         [Required]
         public int Id { get; set; } 
 
-        public string cuil { get; set; }
+        public string tipoSangre { get; set; }
         [Required]
 
         public string nombre { get; set; }
 
+        public string cuil { get; set; }
         public string apellido { get; set; }
     }
 }

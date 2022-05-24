@@ -15,6 +15,7 @@ namespace contrato.entidades
         public bool medicamentos { get; set; }
         public bool enfermedades { get; set; }
 
+        public string tipoSangre { get; set; }
         public string Correo { get; set; }
     }
 }

@@ -120,6 +120,7 @@
             const Correo = document.getElementById("correoCliente").value;
             const enfermedades = SetBool(document.getElementById("enfermedades").value);
             const medicamentos = SetBool(document.getElementById("medicamentos").value);
+            const tipoSangre = document.getElementById("tipoDeSangre").value;
 
             let datos = {
 
@@ -128,9 +129,10 @@
               "Apellido" : Apellido,
               "medicamentos" : medicamentos,
               "enfermedades" : enfermedades,
-              "Correo" : Correo
+              "Correo" : Correo,
+              "tipoSangre": tipoSangre
             }
-
+debugger;
             console.log(datos);
 
             if( datos.Id != "" && datos.Nombre != "" && datos.Apellido != ""){

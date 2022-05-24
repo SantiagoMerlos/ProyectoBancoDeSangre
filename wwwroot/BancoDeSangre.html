@@ -33,44 +33,70 @@
 
 
       <div class="container">
-        <p>Complete el siguiente formulario para generar un nuevo pedido.</p>
-        <form action="">
-    
-          <div class="form-group col-md-3">
-            <label for="exampleFormControlInput1">Ingrese el id del pedido:</label>
-            <input type="number" class="form-control" id="idPedido" aria-describedby=""
-                placeholder="Ingrese el ID">
+        <p> <b>Complete el siguiente formulario para generar un nuevo pedido.</b> </p>
+        <br>
+
+        <div class="row">
+
+          <form action="" class="col-md-3">
+        
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Ingrese el id del pedido:</label>
+              <input type="number" class="form-control" id="idPedido" aria-describedby=""
+                  placeholder="Ingrese el ID">
+            </div>
+      
+      
+            <div class="form-group" >
+              <label for="exampleFormControlInput1">Seleccione el tipo de sangre.</label>
+              <select class="form-select" aria-label="Default select example" id="tipoDeSangre">
+                <option selected>Seleccione una opción</option>
+                <option>A+</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B-</option>
+                <option>0+</option>
+                <option>0-</option>
+              </select>
+            </div>
+      
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Ingrese la cantidad de litros necesaria:</label>
+              <input type="string" class="form-control" id="cantLitros" aria-describedby=""
+                  placeholder="Ingrese el apellido">
           </div>
-    
-    
-          <div class="form-group col-md-3" >
-            <label for="exampleFormControlInput1">Seleccione el tipo de sangre.</label>
-            <select class="form-select" aria-label="Default select example" id="tipoDeSangre">
-              <option selected>Seleccione una opción</option>
-              <option>A+</option>
-              <option>A-</option>
-              <option>B+</option>
-              <option>B-</option>
-              <option>0+</option>
-              <option>0-</option>
-            </select>
+      
+          <br>
+          <input type="reset"value="Limpiar formulario" class="btn btn-primary formulario__boton">
+          </form>
+
+          <div class="div_scroll col-md-9">
+            <table id="tabla" class="table">
+              <thead>
+                  <tr>
+                      <th scope="col" id="id">#</th>
+                      <th scope="col" id="name">Nombre</th>
+                      <th scope="col" id="middlename">Apellido</th>
+                      
+                      <th scope="col" id="medicamento">Donante</th>
+                      <th scope="col" id="tipoSangre">tipo de Sangre</th>
+                      <th scope="col" id="actions">Acciones</th>
+                      
+                      
+                  </tr>
+              </thead>
+              <tbody id="cuerpo-tabla">
+              </tbody>
+          </table>
           </div>
-    
-        <div class="form-group col-md-3">
-          <label for="exampleFormControlInput1">Ingrese la cantidad de litros necesaria:</label>
-            <input type="string" class="form-control" id="cantLitros" aria-describedby=""
-                placeholder="Ingrese el apellido">
         </div>
-    
-        <br>
-        <input type="reset"value="Limpiar formulario" class="btn btn-primary formulario__boton">
-        </form>
-        <br>
+
         <div style="display:inline">
           <button id="btnSubmitAgregar" type="submit" class="btn btn-primary btn-success" onclick="addOrder()" > Realizar pedido <i class="fas fa-user-plus"></i> </button>
       </div>
-    
-    
+      </div>
+      <div id="Buttons">
+
       </div>
     
 </body>
@@ -78,11 +104,155 @@
 
 
 <script>
-    function addOrder(){
 
-      alert('pedido agregado')
 
+  
+  async function addOrder()
+  {                
+    var sangre=  document.getElementById("tipoDeSangre").value;
+    
+    
+    switch (sangre) {
+      case "A+":
+          sangre="Ap"
+        break;
+      case "B+":
+          sangre="Bp"
+        break;
+      case "0+":
+          sangre="0p"
+        break;
+      default:
+        break;
     }
+
+
+    debugger;
+    
+    var urlApi = "https://localhost:7126/Api/Solicitante/?tipoSangre="+sangre;
+
+    console.log(urlApi)
+      const respuesta = await fetch(urlApi,
+          {
+              mode : 'no-cors',
+              method : 'GET',
+              headers: 
+              {
+              'accept' : 'application/json',
+              'Content-Type' : 'application/json',    
+              },
+          })
+          .then(respuesta =>respuesta.json())
+          console.log(respuesta);
+          debugger;
+  
+          listClientes = respuesta.asociados;
+
+                   renderTabla(listClientes); 
+
+                   console.log(listClientes)
+                    debugger;
+
+                    return listClientes;
+                    //return respuesta.asociados;
+                       
+                    debugger;
+                    var checkbox = 0;
+                    
+
+                    function renderTabla(listClientes){
+
+                        for (var i=0; i<listClientes.length; i++){
+                          var cuerpotabla = document.getElementById("cuerpo-tabla");
+                          
+                          var estado= "NO"
+                          if (listClientes[i].esDonante == true){
+                            estado = "SI"
+                          }
+
+                          var tdID = document.createElement("td"); tdID.innerHTML = listClientes[i].id;
+                          var tdNombre = document.createElement("td"); tdNombre.innerHTML = listClientes[i].nombre;
+                          var tdApellido = document.createElement("td"); tdApellido.innerHTML = listClientes[i].apellido;
+                          var tdEsDonante = document.createElement("td"); tdEsDonante.innerHTML = estado;
+                          
+                          var tdTipoSangre = document.createElement("td"); tdTipoSangre.innerHTML = listClientes[i].tipoSangre;
+                          checkbox = createNewCheckboxt(checkbox,i);
+                          var tdCheckbox = document.createElement("td"); tdCheckbox.appendChild(checkbox);
+
+                          var tr = document.createElement("tr");
+                          tr.id = "tr"+i;
+                          cuerpotabla.appendChild(tr);
+                          
+                          document.getElementById("tr"+i).appendChild(tdID);
+                          document.getElementById("tr"+i).appendChild(tdNombre);
+                          document.getElementById("tr"+i).appendChild(tdApellido);
+                          
+                          document.getElementById("tr"+i).appendChild(tdEsDonante);
+                          document.getElementById("tr"+i).appendChild(tdTipoSangre)
+                          document.getElementById("tr"+i).appendChild(tdCheckbox);
+                          
+                          function createNewCheckboxt(checkbox, i) {
+                            var checkbox = document.createElement('input'); 
+                            checkbox.type= 'checkbox';
+                            checkbox.name = "checkAsociado"+i;
+                            checkbox.id = "checkboxAsociado"+i;
+                            checkbox.setAttribute('onclick','createButtons('+checkbox.id+');')
+                            
+                            return checkbox;
+                        }
+
+                        }
+                      }              
+            }
+
+      function createButtons(chk)
+      {
+        var position = document.getElementById("Buttons");
+        var buttonEditar = document.createElement("button");  buttonEditar.innerHTML= "Editar asociado"; buttonEditar.id = "buttonEditar";
+        buttonEditar.setAttribute('onclick', 'screenEdit()');
+        var buttonBorrar = document.createElement("button"); buttonBorrar.innerHTML = "Eliminar asociado"; buttonBorrar.id = "buttonBorrar";
+        buttonBorrar.setAttribute('onclick', 'screenDelete()');
+        
+        
+        var state = disabledCheckbox(chk);
+
+        if(chk.checked && !state)
+        {
+          position.appendChild(buttonEditar);
+          position.appendChild(buttonBorrar);
+        }
+        else
+        {
+          if(!chk.checked)
+          {
+          position.removeChild(position.firstElementChild);
+          position.removeChild(position.firstElementChild);
+          }
+        }
+      }
+
+      function disabledCheckbox(chk)
+      {
+
+        var state = false;
+        for (let i = 0; i <listClientes.length ; i++)
+        {
+
+            if(document.getElementById("checkboxAsociado"+i).checked)
+            {
+              if(document.getElementById("checkboxAsociado"+i) != chk)
+              {
+                document.getElementById("checkboxAsociado"+i).checked = false;
+                state = true;
+              }              
+            }
+        }
+        return state;
+      }
+          
+  
+
+
 
 
 

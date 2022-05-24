@@ -45,9 +45,9 @@
                   <th scope="col" id="middlename">Apellido</th>
                   <th scope="col" id="gmail">Correo</th>
                   <th scope="col" id="medicamento">Donante</th>
-                  
-                  <th scope="col" id="actions">Acciones</th>
                   <th scope="col" id="tipoSangre">tipo de Sangre</th>
+                  <th scope="col" id="actions">Acciones</th>
+                  
                   
               </tr>
           </thead>
@@ -140,6 +140,7 @@ var listClientes;
                           var tdApellido = document.createElement("td"); tdApellido.innerHTML = listClientes[i].apellido;
                           var tdEsDonante = document.createElement("td"); tdEsDonante.innerHTML = estado;
                           var tdCorreo = document.createElement("td"); tdCorreo.innerHTML = listClientes[i].correo;
+                          var tdTipoSangre = document.createElement("td"); tdTipoSangre.innerHTML = listClientes[i].tipoSangre;
                           checkbox = createNewCheckboxt(checkbox,i);
                           var tdCheckbox = document.createElement("td"); tdCheckbox.appendChild(checkbox);
 
@@ -152,6 +153,7 @@ var listClientes;
                           document.getElementById("tr"+i).appendChild(tdApellido);
                           document.getElementById("tr"+i).appendChild(tdCorreo);
                           document.getElementById("tr"+i).appendChild(tdEsDonante);
+                          document.getElementById("tr"+i).appendChild(tdTipoSangre)
                           document.getElementById("tr"+i).appendChild(tdCheckbox);
                           
                           function createNewCheckboxt(checkbox, i) {
