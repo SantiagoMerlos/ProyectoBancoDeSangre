@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="../css/styles.css?1.4" />
+    <title>Asignar turnos</title>
+</head>
+
+<body class="background">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link"  href="Asociados.html">Circulo</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <br>
+      <br>
+
+    
+
+  <div class="container">
+    <p>Complete el siguiente formulario para asignar un turno.</p>
+    <form action="">
+
+      <div class="form-group col-md-4">
+        <label for="exampleFormControlInput1">Id del Asociado:</label>
+        <input type="number" class="form-control" id="idCliente" aria-describedby=""
+            placeholder="">
+      </div>
+
+
+    <div class="form-group col-md-4">
+      <label for="exampleFormControlInput1">Nombre del asociado:</label>
+      <input type="string" class="form-control" id="nombreCliente" aria-describedby=""
+          placeholder="">
+    </div>
+
+    <div class="form-group col-md-4">
+      <label for="exampleFormControlInput1">Apellido del asociado:</label>
+        <input type="string" class="form-control" id="apellidoCliente" aria-describedby=""
+            placeholder="">
+    </div>
+
+    <div class="form-group col-md-4">
+        <label for="exampleFormControlInput1">Tipo de sangre:</label>
+          <input type="string" class="form-control" id="tipoDeSangre" aria-describedby=""
+              placeholder="">
+      </div>
+
+    <div class="row">
+        <div class="form-group col-md-2">
+            <label for="exampleFormControlInput1">fecha de donación:</label>
+              <input type="date" class="form-control" id="fechaDeDonacion" aria-describedby=""
+                  placeholder="">
+          </div>
+          <div class="form-group col-md-2">
+            <label for="exampleFormControlInput1">Hora de donación:</label>
+              <input type="time" class="form-control" id="horaDeDonacion" aria-describedby=""
+                  placeholder="">
+          </div>
+    </div>
+      
+    </form>
+    <br>
+    <div style="display:inline">
+      <button id="btnSubmitAgregar" type="submit" class="btn btn-primary btn-success" onclick="assignShifts()" > Asignar turnos<i class="fas fa-user-plus"></i> </button>
+  </div>
+
+
+  </div>   
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+
+
+        let params = new URLSearchParams(location.search);
+        var contract = params.get('Id');
+        var pedido = params.get('IdPedido1')
+
+        debugger;
+        console.log(contract);
+        console.log(pedido);
+
+
+  //var urlApi = "https://localhost:7126/Api/Asociado/?Id="+contract;
+  var urlApi = "https://localhost:7126/Api/Asociado/?Nombre=' ' &Apellido= ' ' &Id=" + contract;
+  
+
+            async function GetAsociados()
+            {                
+                const respuesta = await fetch(urlApi,
+                    {
+                        mode : 'no-cors',
+                        method : 'GET',
+                        headers: 
+                        {
+                        'accept' : 'application/json',
+                        'Content-Type' : 'application/json',    
+                        },
+                    })
+                    .then(respuesta =>respuesta.json())
+
+                   //SE AGREGAN LOS DATOS OBTENIDOS COMO RESPUESTA AL FORMULARIO;
+                   document.getElementById("idCliente").value= respuesta.asociado1.id;
+                   document.getElementById("nombreCliente").value= respuesta.asociado1.nombre;
+                   document.getElementById("apellidoCliente").value= respuesta.asociado1.apellido;
+                   document.getElementById("tipoDeSangre").value= respuesta.asociado1.tipoSangre;
+                   idCliente.disabled= true;
+                   nombreCliente.disabled= true;
+                   apellidoCliente.disabled= true;
+                   tipoDeSangre.disabled= true;
+
+                    debugger;
+                    
+                    return respuesta;
+                    
+            }
+
+            GetAsociados();
+            
+    </script>
+        <script>
+            var urlApi2 = "https://localhost:7126/Api/Solicitante";
+  
+            function assignShifts(){
+
+              console.log(pedido)
+  
+              const Id = document.getElementById("idCliente").value;
+              const Nombre = document.getElementById("nombreCliente").value;
+              const Apellido = document.getElementById("apellidoCliente").value;
+              const tipoSangre = document.getElementById("tipoDeSangre").value;
+              const fechaDonacion = document.getElementById("fechaDeDonacion").value;
+              const horaDonacion = document.getElementById("horaDeDonacion").value;
+  
+              let datos = {
+  
+                "Id" : Id,
+                "Nombre" : Nombre,
+                "Apellido" : Apellido,
+                "tipoSangre": tipoSangre,
+                "fechaDonacion": fechaDonacion,
+                "horaDonacion" : horaDonacion,
+                "Idpedido" : pedido
+              }
+  
+              console.log(datos);
+  
+              if( datos.Id != "" && datos.Nombre != "" && datos.Apellido != ""){
+                    const respuesta = fetch(urlApi2,
+                  {
+                      method : "POST",
+                      headers: 
+                      {
+                      'accept' : 'application/json',
+                      'Content-Type' : 'application/json',    
+                      },
+                      body : JSON.stringify(datos) 
+                  })
+                  .then(respuesta => 
+                        Swal.fire(
+                        'Turno asignado con éxito!',
+                        'You clicked the button!',
+                        'success',
+                        setTimeout(function(){
+                          window.location.href = "../BancoDeSangre.html";
+                          }, 2000)
+                      ))
+                  .catch(error => console.log(error))
+                    
+                  return respuesta;
+              }else{
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Ingrese los datos faltantes!',
+                })
+              }
+  
+            }
+  
+      </script>
+</body>
+</html>

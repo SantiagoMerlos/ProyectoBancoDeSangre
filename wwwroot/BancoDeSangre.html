@@ -208,12 +208,9 @@
       function createButtons(chk)
       {
         var position = document.getElementById("Buttons");
-        var buttonEditar = document.createElement("button");  buttonEditar.innerHTML= "Editar asociado"; buttonEditar.id = "buttonEditar";
-        buttonEditar.setAttribute('onclick', 'screenEdit()');
-        var buttonBorrar = document.createElement("button"); buttonBorrar.innerHTML = "Eliminar asociado"; buttonBorrar.id = "buttonBorrar";
-        buttonBorrar.setAttribute('onclick', 'screenDelete()');
-        
-        
+        var buttonEditar = document.createElement("button");  buttonEditar.innerHTML= "Asignar turno y hora"; buttonEditar.id = "buttonTurno";
+        buttonEditar.setAttribute('onclick', 'screenAsignar()');
+      
         var state = disabledCheckbox(chk);
 
         if(chk.checked && !state)
@@ -249,7 +246,32 @@
         }
         return state;
       }
-          
+      
+      function screenAsignar(){
+        var IDAsociado = 0;
+        var IDPedido = document.getElementById("idPedido").value;
+
+        var local = SeakAsociadoSelected(IDAsociado);
+         //window.location.href = "http://127.0.0.1:5500/wwwroot/Editar.html?Id="+local;
+         window.location.href = "../AsignarTurnos.html?Id="+local+ "&IdPedido1="+IDPedido;
+         
+      }
+
+      function SeakAsociadoSelected(IDAsociado){
+        
+        for(var i = 0; i <listClientes.length ; i++)
+        {
+          if(document.getElementById("checkboxAsociado"+i).checked)
+          {
+            console.log(listClientes[i].id)
+            debugger;
+            
+            IDAsociado = listClientes[i].id;
+            return IDAsociado;
+          }
+        }
+        return IDAsociado;
+      }
   
 
 

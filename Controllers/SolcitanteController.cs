@@ -21,14 +21,14 @@ using Newtonsoft.Json;
 
         }
 
-        private void GuardarAsociado(Solicitante? solicitante)
+        private void GuardarTurnos(Solicitante? solicitante)
     {
         if(solicitante != null) Solicitantes.Add(solicitante);
         string temp = JsonConvert.SerializeObject(Solicitantes);        
         System.IO.File.WriteAllText(DIRECCION_SOLICITANTES, temp);
     }
 
-    private void Cargarsol()
+    private void CargarTurnos()
     {
         string json = System.IO.File.ReadAllText(DIRECCION_SOLICITANTES);
         Solicitantes = JsonConvert.DeserializeObject<List<Solicitante>>(json);
@@ -36,26 +36,6 @@ using Newtonsoft.Json;
         if(Solicitantes == null) Solicitantes = new List<Solicitante>();
     
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
  public List<Asociado> asociados { get; set; }
@@ -103,40 +83,29 @@ using Newtonsoft.Json;
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*     [HttpPost]
-        public async Task<RespuestaCrearSolicitante> Post([FromBody] SolicitudCrearSolicitante solicitud)
+        [HttpPost]
+        public async Task<RespuestaCrearSolicitante> Post([FromBody] SolicitudCrearAsignacionTurnoss solicitud)
         {
-            CargarAsociados();
+            CargarTurnos();
 
             var respuesta = new RespuestaCrearSolicitante();
             var solicitanteNuevo = new Solicitante();
             
             solicitanteNuevo.Id = solicitud.Id;
+            solicitanteNuevo.IdPedido = solicitud.IdPedido;
             solicitanteNuevo.nombre = solicitud.nombre;
-            solicitanteNuevo.cuil = solicitud.cuil;
             solicitanteNuevo.apellido = solicitud.apellido;
-            
-
+            solicitanteNuevo.fechaDonacion = solicitud.fechaDonacion;
+            solicitanteNuevo.horaDonacion = solicitud.horaDonacion;
+        
             respuesta.solicitante = solicitanteNuevo;
 
-            GuardarAsociado(solicitanteNuevo);
+            GuardarTurnos(solicitanteNuevo);
 
             return respuesta;
         } 
+
+    /*     
 
 
         [HttpPut]
