@@ -102,7 +102,6 @@ using Newtonsoft.Json;
 
             user = Solicitantes.FindAll(x=> x.fechaDonacion > DateTime.Now);
             
-
             respuesta.solicitantes = user;
             
             return respuesta;

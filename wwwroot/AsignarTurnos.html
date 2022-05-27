@@ -146,7 +146,7 @@
               const tipoSangre = document.getElementById("tipoDeSangre").value;
               const fechaDonacion = document.getElementById("fechaDeDonacion").value;
               const horaDonacion = document.getElementById("horaDeDonacion").value;
-  
+
               let datos = {
   
                 "Id" : Id,
@@ -159,9 +159,16 @@
               }
   
               console.log(datos);
-  
-              if( datos.Id != "" && datos.Nombre != "" && datos.Apellido != ""){
-                    const respuesta = fetch(urlApi2,
+              var hoy = new Date()
+
+              var actual =  hoy.getFullYear()+ '-' + ( hoy.getMonth() + 1 ) + '-' +hoy.getDate() ;
+              
+              
+              console.log("fechaActual "+actual);
+              debugger;
+              if (fechaDeDonacion >= actual) {
+                debugger;
+                const respuesta = fetch(urlApi2,
                   {
                       method : "POST",
                       headers: 
@@ -185,13 +192,15 @@
                   return respuesta;
               }else{
                 Swal.fire({
-                  icon: 'error',
-                  title: 'Oops...',
-                  text: 'Ingrese los datos faltantes!',
-                })
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Ingrese una fecha valida!'})
+
               }
+
+            }   
   
-            }
+            
   
       </script>
 </body>

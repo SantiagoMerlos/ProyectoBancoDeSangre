@@ -63,3 +63,9 @@
     text-decoration: none;
     color: white;;
 }
+
+#buttonTurno{
+    color: white;
+    background-color: rgb(32, 83, 64);
+    border-radius: 15px;
+}
