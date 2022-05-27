@@ -31,6 +31,10 @@
       <br>
       <br>
 
+      <div class="btnn">
+        <button class="btn btn-success btn-pedidosVigentes"><a href="PedidosVigentes.html">Pedidos vigentes</a> </button>
+      </div>
+      
 
       <div class="container">
         <p> <b>Complete el siguiente formulario para generar un nuevo pedido.</b> </p>
@@ -101,7 +105,7 @@
     
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
 
@@ -110,9 +114,12 @@
   async function addOrder()
   {                
     var sangre=  document.getElementById("tipoDeSangre").value;
+    var idPedido = document.getElementById("idPedido").value;
     
     
-    switch (sangre) {
+    if ( sangre != "Seleccione una opción" && idPedido != ""){
+
+      switch (sangre) {
       case "A+":
           sangre="Ap"
         break;
@@ -130,6 +137,8 @@
     debugger;
     
     var urlApi = "https://localhost:7126/Api/Solicitante/?tipoSangre="+sangre;
+
+    
 
     console.log(urlApi)
       const respuesta = await fetch(urlApi,
@@ -206,7 +215,18 @@
 
                         index++;
                         }
-                      }              
+                      }     
+
+
+    }
+    else{
+      Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Ingrese los datos faltantes!'})
+    }
+    
+         
             }
 
             function cleanTable()
@@ -293,11 +313,6 @@
         return IDAsociado;
       }
   
-
-
-
-
-
 
 </script>
 

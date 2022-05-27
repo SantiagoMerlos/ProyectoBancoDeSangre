@@ -81,6 +81,33 @@ using Newtonsoft.Json;
             return respuesta;
            
         }
+        
+        [HttpGet]
+        [Route("Home")]
+        
+        public async Task<RespuestaObtenerSolicitante> GetObtener()
+        {
+            var respuesta = new RespuestaObtenerSolicitante();
+            
+            CargarTurnos();
+
+            var user = new List<Solicitante>();
+            
+           /*var usuarios = this.Solicitantes;
+
+            usuarios.Remove(usuarios.Find(x =>x.fechaDonacion < DateTime.Now ));
+    
+            GuardarTurnos();
+             */
+
+            user = Solicitantes.FindAll(x=> x.fechaDonacion > DateTime.Now);
+            
+
+            respuesta.solicitantes = user;
+            
+            return respuesta;
+           
+        }
 
 
         [HttpPost]
@@ -95,6 +122,7 @@ using Newtonsoft.Json;
             solicitanteNuevo.IdPedido = solicitud.IdPedido;
             solicitanteNuevo.nombre = solicitud.nombre;
             solicitanteNuevo.apellido = solicitud.apellido;
+            solicitanteNuevo.tipoSangre = solicitud.tipoSangre;
             solicitanteNuevo.fechaDonacion = solicitud.fechaDonacion;
             solicitanteNuevo.horaDonacion = solicitud.horaDonacion;
         

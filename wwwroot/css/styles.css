@@ -52,3 +52,14 @@
 .btn-BancoDeSangre a{
     text-decoration: none;
 }
+.btnn{
+    width: 90%;
+    text-align: right;
+}
+.btn-pedidosVigentes{
+    text-align: right;
+}
+.btn-pedidosVigentes a{
+    text-decoration: none;
+    color: white;;
+}
