@@ -100,7 +100,7 @@ using Newtonsoft.Json;
             GuardarTurnos();
              */
 
-            user = Solicitantes.FindAll(x=> x.fechaDonacion > DateTime.Now);
+            user = Solicitantes.FindAll(x=> x.fechaDonacion >= DateTime.Now);
             
             respuesta.solicitantes = user;
             
@@ -116,20 +116,26 @@ using Newtonsoft.Json;
 
             var respuesta = new RespuestaCrearSolicitante();
             var solicitanteNuevo = new Solicitante();
+
+            if (solicitud.fechaDonacion >= DateTime.Now)
+            {
+                solicitanteNuevo.Id = solicitud.Id;
+                solicitanteNuevo.IdPedido = solicitud.IdPedido;
+                solicitanteNuevo.nombre = solicitud.nombre;
+                solicitanteNuevo.apellido = solicitud.apellido;
+                solicitanteNuevo.tipoSangre = solicitud.tipoSangre;
+                solicitanteNuevo.fechaDonacion = solicitud.fechaDonacion;
+                solicitanteNuevo.horaDonacion = solicitud.horaDonacion;
             
-            solicitanteNuevo.Id = solicitud.Id;
-            solicitanteNuevo.IdPedido = solicitud.IdPedido;
-            solicitanteNuevo.nombre = solicitud.nombre;
-            solicitanteNuevo.apellido = solicitud.apellido;
-            solicitanteNuevo.tipoSangre = solicitud.tipoSangre;
-            solicitanteNuevo.fechaDonacion = solicitud.fechaDonacion;
-            solicitanteNuevo.horaDonacion = solicitud.horaDonacion;
-        
-            respuesta.solicitante = solicitanteNuevo;
+                respuesta.solicitante = solicitanteNuevo;
 
-            GuardarTurnos(solicitanteNuevo);
+                GuardarTurnos(solicitanteNuevo);
 
-            return respuesta;
+                return respuesta;
+            }else{
+                respuesta.mensajeError = "Por favor ingrese una fecha valida";
+                return respuesta;
+            }
         } 
 
     /*     

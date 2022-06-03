@@ -159,15 +159,7 @@
               }
   
               console.log(datos);
-              var hoy = new Date()
 
-              var actual =  hoy.getFullYear()+ '-' + ( hoy.getMonth() + 1 ) + '-' +hoy.getDate() ;
-              
-              
-              console.log("fechaActual "+actual);
-              debugger;
-              if (fechaDeDonacion >= actual) {
-                debugger;
                 const respuesta = fetch(urlApi2,
                   {
                       method : "POST",
@@ -178,26 +170,36 @@
                       },
                       body : JSON.stringify(datos) 
                   })
-                  .then(respuesta => 
-                        Swal.fire(
+                  .then(respuesta => respuesta.json())
+
+                  const resultado = respuesta.mensajeError
+
+                  //.catch(error => console.log(error))
+
+                  console.log("el resultado es: " + resultado)
+                  debugger;
+
+
+                //  response();
+                  return respuesta;
+
+
+             function response() {
+                  if (respuesta.errorMensaje == "") {
+                    debugger;
+                    Swal.fire(
                         'Turno asignado con éxito!',
                         'You clicked the button!',
                         'success',
                         setTimeout(function(){
                           window.location.href = "../BancoDeSangre.html";
                           }, 2000)
-                      ))
-                  .catch(error => console.log(error))
-                    
-                  return respuesta;
-              }else{
-                Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Ingrese una fecha valida!'})
-
-              }
-
+                      )
+                  }else {
+                    console.log(respuesta.mensajeError)
+                    debugger;
+                  }
+                }
             }   
   
             
