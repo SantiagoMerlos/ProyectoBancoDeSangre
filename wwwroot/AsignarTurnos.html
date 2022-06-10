@@ -136,7 +136,7 @@
         <script>
             var urlApi2 = "https://localhost:7126/Api/Solicitante";
   
-            function assignShifts(){
+       async function assignShifts(){
 
               console.log(pedido)
   
@@ -160,7 +160,7 @@
   
               console.log(datos);
 
-                const respuesta = fetch(urlApi2,
+                const respuesta = await fetch(urlApi2,
                   {
                       method : "POST",
                       headers: 
@@ -171,35 +171,28 @@
                       body : JSON.stringify(datos) 
                   })
                   .then(respuesta => respuesta.json())
-
-                  const resultado = respuesta.mensajeError
-
-                  //.catch(error => console.log(error))
-
-                  console.log("el resultado es: " + resultado)
-                  debugger;
+                  .catch(err =>console.log(err));
 
 
-                //  response();
-                  return respuesta;
+                  resultado = respuesta.mensajeError;
 
-
-             function response() {
-                  if (respuesta.errorMensaje == "") {
-                    debugger;
+                  if(respuesta.mensajeError == null){
                     Swal.fire(
-                        'Turno asignado con éxito!',
-                        'You clicked the button!',
-                        'success',
-                        setTimeout(function(){
-                          window.location.href = "../BancoDeSangre.html";
-                          }, 2000)
-                      )
-                  }else {
-                    console.log(respuesta.mensajeError)
-                    debugger;
-                  }
-                }
+                    'Turno asignado con éxito!',
+                    'You clicked the button!',
+                    'success',
+                    setTimeout(function(){
+                      window.location.href = "../BancoDeSangre.html";
+                      }, 2000))
+                  }else{
+                    Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Por favor ingrese una fecha valida!',
+              })
+
+                  }  
+                  return respuesta;
             }   
   
             
